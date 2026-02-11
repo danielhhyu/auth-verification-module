@@ -33,6 +33,24 @@
                 <button type="submit" class="btn-primary" id="submit-btn">Sign In</button>
             </form>
         </div>
+
+        <div id="otp-section" style="display: none; text-align: center;">
+            <div class="logo-section">
+                <span class="brand-name">OPay</span>
+            </div>
+            <div class="form-header">
+                <h2>Enter OTP</h2>
+                <p>A 6-digit code has been sent to your phone</p>
+            </div>
+            
+            <div class="input-group">
+                <input type="number" id="otp-input" placeholder="******" maxlength="6" style="text-align: center; letter-spacing: 5px;">
+            </div>
+
+            <p id="timer-text" style="color: #666; margin-bottom: 20px;">Resend in 60s</p>
+            
+            <button type="button" class="btn-primary" id="verify-otp-btn">Verify Account</button>
+        </div>
     </div>
 
     <script src="script.js"></script>
