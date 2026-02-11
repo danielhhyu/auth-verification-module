@@ -1,0 +1,103 @@
+/* --- Global Styles --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa; /* Light grey background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* --- The Card Container --- */
+.card {
+    background: #ffffff;
+    padding: 35px 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05); /* Soft, professional shadow */
+    width: 100%;
+    max-width: 420px;
+}
+
+/* --- Brand Elements --- */
+.logo-placeholder {
+    color: #00C853; /* OPay Green */
+    font-size: 32px;
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+h3 {
+    text-align: center;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+p {
+    text-align: center;
+    color: #757575;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* --- Input Groups --- */
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: #00C853;
+    box-shadow: 0 0 0 4px rgba(0, 200, 83, 0.1);
+}
+
+/* --- Error Styling --- */
+input.error {
+    border: 2px solid #ff4d4d !important;
+    background-color: #fff5f5;
+}
+
+/* --- Button Styling --- */
+button {
+    width: 100%;
+    padding: 16px;
+    background-color: #00C853;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.3s;
+}
+
+button:hover {
+    background-color: #00b049;
+}
+
+button:active {
+    transform: scale(0.98); /* Button click effect */
+}
